@@ -1,0 +1,26 @@
+' Gambas class file
+
+Public Sub Form_Open() 
+  
+  LabelSettings.Text = LabelSettings.Text & "   " & FMain.sSettingsFile
+  TextConfFile.Text = File.Load(FMain.sSettingsFile)
+  Me.Title = "Edge Action"
+  
+End
+
+Public Sub cmdCancel_Click()
+  
+  Me.Close
+  
+End
+
+Public Sub cmdSave_Click()
+  
+  File.Save(FMain.sSettingsFile, TextConfFile.Text)
+  Me.Close
+  
+End
+
+Public Sub TextHelp_KeyPress()
+  
+End

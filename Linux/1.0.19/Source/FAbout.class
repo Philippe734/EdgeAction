@@ -1,0 +1,26 @@
+' Gambas class file
+
+Public Sub Form_Open()
+  
+  Me.Title = "About me"
+  
+  lblAppVersion.Text = Application.Title & " " & Application.Version & " for Linux"
+  lblAuthor.Text = "Free open source GNU/GPL" & gb.NewLine & "by Philippe734 @ 2020"
+  
+  cmdWebSite.ToolTip = "https://github.com/Philippe734"
+  
+  cmdWebSite.SetFocus
+  
+End
+
+Public Sub cmdOK_Click()    
+  
+  Me.Close    
+  
+End
+
+Public Sub cmdWebSite_Click()
+  
+  Shell "xdg-open '" & cmdWebSite.ToolTip & "'"
+  
+End

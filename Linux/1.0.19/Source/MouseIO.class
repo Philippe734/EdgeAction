@@ -1,0 +1,53 @@
+' Gambas class file
+
+'
+' Class to hook the mouse position
+' Code from LeoMajor from Ubuntu-fr.org
+' 2020.03
+'
+Export
+
+Event MouseMove(X As Integer, Y As Integer)
+'' Native GambasObject  mo as Mouse
+'' NotNative /usr/bin/xmousepos       xautomation
+
+Private ti As New Timer As "eti"
+
+Public Sub GetMouse()
+  
+  Dim mo As Mouse, p As String, pp As String[], a As Integer, b As Integer
+  
+  Try a = mo.X And b = mo.Y
+  
+  If Error Then 
+    Exec ["/usr/bin/xmousepos"] To p
+    pp = Split(p, " ")
+    a = CInt(pp[0])
+    b = CInt(pp[1])
+  Endif
+  
+  Raise MouseMove(a, b)
+  
+Catch
+  'Print "erreur", Timer  
+  
+End
+
+Public Sub eti_Timer()
+  
+  GetMouse()
+  
+End
+
+Public Sub Start()
+  
+  ti.delay = 40
+  ti.Start
+  
+End
+
+Public Sub Stop()
+  
+  ti.Stop()  
+  
+End 
