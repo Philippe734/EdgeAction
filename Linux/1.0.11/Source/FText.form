@@ -1,0 +1,41 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,87,53)
+  Icon = Picture["icon:/32/select"]
+  Resizable = False
+  { cmdSave Button
+    MoveScaled(69,47,17,5)
+    ToolTip = ("Save and exit")
+    Text = ("Save")
+  }
+  { cmdCancel Button
+    MoveScaled(51,47,17,5)
+    ToolTip = ("Close without saving")
+    Text = ("Cancel")
+  }
+  { TextHelp TextArea
+    MoveScaled(1,4,85,21)
+    Background = &HE000FF7F&
+    Expand = True
+    Text = ("Execute command when right clic on edge of screen. You can set upto 4 commands. Enclose a command with \" before and after. For a script, enclose the path with \" and ' before and after. Use # before to comment it.\nExamples:\nTopEdge=\"nautilus\" # open the file browser named nautilus\nRightEdge=\"xdotool key Alt+F4\" # close the active window\nLeftEdge=\"  '/Path/To/My/Script.sh'  \" # your own script\n#BottomEdge not used")
+    ReadOnly = True
+    Wrap = True
+    ScrollBar = Scroll.Vertical
+  }
+  { TextConfFile TextArea
+    MoveScaled(1,29,85,17)
+    Text = ("[Command]\nExist=\"True\"\nTopEdge=\"nautilus\" # open the file browser named nautilus\nRightEdge=\"xdotool key Alt+F4\" # close the active window\nLeftEdge=\"  '/Path/To/My/Script.sh'  \" # your own script\n#BottomEdge not used")
+    ScrollBar = Scroll.Vertical
+  }
+  { Label1 Label
+    MoveScaled(1,1,32,3)
+    AutoResize = True
+    Text = ("---------------- Help ----------------")
+  }
+  { LabelSettings Label
+    MoveScaled(1,26,32,3)
+    AutoResize = True
+    Text = ("---------- Edit settings ----------")
+  }
+}

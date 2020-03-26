@@ -1,0 +1,32 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(585.1429,585.1429,13,7)
+  Border = False
+  Minimized = True
+  SkipTaskbar = True
+  { menuTray Menu
+    Text = ("menuTray")
+    { menuTrayTitle Menu
+      Text = ("Edge Action")
+      Enabled = False
+    }
+    { Menu2 Menu
+      Enabled = False
+    }
+    { menuTrayPrefs Menu
+      Text = ("Preferences") & "..."
+    }
+    { menuTrayAbout Menu
+      Text = ("About")
+    }
+    { menuTrayQuit Menu
+      Text = ("Quit")
+    }
+  }
+  { TrayIcon1 #TrayIcon
+    #MoveScaled(1,0)
+    Visible = True
+    Picture = Picture["icon:/32/select"]
+  }
+}
