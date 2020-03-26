@@ -34,7 +34,7 @@ Application written in Visual Basic Gambas, so you need to add the PPA for the G
   ```
 2. Download the package .deb and install it :
   ```
-  sudo dpkg -i ~/Downloads/edgeaction_1.0.11-0ubuntu1_all.deb ; sudo apt-get install -fy
+  sudo dpkg -i ~/Downloads/edgeaction_1.0.xxx.deb ; sudo apt-get install -fy
   ```
 The dependancies for the Gambas language will be automatically installed.
 - Or, here a one line to download and install it :
