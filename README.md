@@ -21,7 +21,7 @@ Use mouse gesture to take control of your Linux. You can set upto 4 commands.
 
 [![download][2]][1]
 
-  [1]: https://github.com/Philippe734/EdgeAction/raw/master/Linux/1.0.12/edgeaction_1.0.12-0ubuntu1_all.deb
+  [1]: https://github.com/Philippe734/EdgeAction/raw/master/Linux/1.0.11/edgeaction_1.0.11-0ubuntu1_all.deb
   [2]: https://cloud.githubusercontent.com/assets/24923693/21723900/7fdda69e-d432-11e6-8ab1-87dd79f36fe5.gif
 
 ## Install
@@ -32,14 +32,14 @@ Application written in Visual Basic Gambas, so you need to add the PPA for the G
   ```
   sudo add-apt-repository ppa:gambas-team/gambas3 -y ; sudo apt-get update 
   ```
-2. Download the package .deb and install it :
+2. Download the package .deb and install it + dependencies :
   ```
-  sudo dpkg -i ~/Downloads/edgeaction_1.0.xxx.deb ; sudo apt-get install -fy
+  sudo dpkg -i ~/Downloads/edgeaction_1.0.xxx.deb ; sudo apt install gb.gui.trayicon -y ; sudo apt-get install -fy
   ```
 The dependancies for the Gambas language will be automatically installed.
 - Or, here a one line to download and install it :
   ```
-  sudo add-apt-repository ppa:gambas-team/gambas3 -y ; sudo apt-get update ; wget https://github.com/Philippe734/EdgeAction/raw/master/Linux/1.0.12/edgeaction_1.0.12-0ubuntu1_all.deb -P ~ ; sudo dpkg -i ~/edgeaction_1.0.12-0ubuntu1_all.deb ; sudo apt-get install -fy ; rm ~/edgeaction_1.0.12-0ubuntu1_all.deb
+  sudo add-apt-repository ppa:gambas-team/gambas3 -y ; sudo apt-get update ; wget https://github.com/Philippe734/EdgeAction/raw/master/Linux/1.0.11/edgeaction_1.0.11-0ubuntu1_all.deb -P ~ ; sudo dpkg -i ~/edgeaction_1.0.11-0ubuntu1_all.deb ; sudo apt install gb.gui.trayicon -y ; sudo apt-get install -fy ; rm ~/edgeaction_1.0.11-0ubuntu1_all.deb
   ```
 The application is not in the PPA and can't be install with a classic apt install :
   ```
