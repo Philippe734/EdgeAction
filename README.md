@@ -26,3 +26,13 @@ The application is not in the PPA and can't be install with a classic apt instal
   ```
   sudo apt install edgeaction # <<< don't work
   ```
+## Profile
+
+![youhou](https://cloud.githubusercontent.com/assets/24923693/21691776/43084e80-d37a-11e6-9571-5c6c60c19964.gif)
+
+If you want to reward my work, or thank me, then you can [donate](http://vpnlifeguard.blogspot.fr/p/faire-un-don.html) a few dollars [HERE](http://vpnlifeguard.blogspot.fr/p/faire-un-don.html) and I'll be very happy!
+
+[![download][2]][1]
+
+  [1]: https://github.com/Philippe734/EdgeAction/raw/master/Linux/1.0.11/edgeaction_1.0.11-0ubuntu1_all.deb
+  [2]: https://cloud.githubusercontent.com/assets/24923693/21723900/7fdda69e-d432-11e6-8ab1-87dd79f36fe5.gif
