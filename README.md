@@ -2,7 +2,7 @@
 
 ## Execute command when right clic on edge of screen for Linux
 
-You can set upto 4 commands.
+Use mouse gesture to take control of your Linux. You can set upto 4 commands. 
 
 ## Some examples
 
