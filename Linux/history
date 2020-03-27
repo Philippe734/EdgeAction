@@ -1,4 +1,6 @@
+1.0.19 :
+Fix dependencies of xinput + xmousepos
 1.0.14 :
-Fix dependancy of gb.gui.trayicon with gambas3-gb-gui-trayicon
+Fix dependency of gb.gui.trayicon with gambas3-gb-gui-trayicon
 Fix icon
 1.0.11 : first release
