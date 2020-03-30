@@ -1,0 +1,213 @@
+' Gambas class file
+
+'
+' Edge Action
+' Execute command when right click on edge of screen for Linux.
+' You can set upt 4 commands.
+' Select preferences in the tray icon to modify commands.
+' Copyright @ Philippe734
+' https://github.com/Philippe734/EdgeAction
+' 2020.03
+'
+
+Public tt As New MouseIO As "ett"
+Private bFlag As Boolean ' clic on edge
+Private bClicNormal As Boolean ' disable/enable clic
+'Private iMouseID As String[] ' with xinput
+Private iMouseID As String ' with cnee
+Public sSettingsFile As String ' path to settings file
+Public sCommandTopEdge As String
+Public sCommandLeftEdge As String
+Public sCommandRightEdge As String
+Public sCommandBottomEdge As String
+
+Public Sub Form_Open()
+  
+  Print "Begin", Timer    
+  
+  Me.Height = 2
+  Me.Width = 2
+  
+  bClicNormal = True
+  
+  menuTray.Visible = False
+  TrayIcon1.PopupMenu = menuTray.Name
+  sSettingsFile = User.Home & "/.config/gambas3/" & Application.Name & ".conf"
+  
+  LoadSettings
+  
+  WriteSettings
+  
+  Repeat
+    GetMouseID ' with cnee
+  Until iMouseID <> ""
+  
+  tt.Start() ' start timer to hook mouse position
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Public Sub ett_MouseMove(X As Integer, Y As Integer)
+  
+  Dim sClic As String, sEdge As String
+  
+  If FMain.Visible = True Then FMain.Visible = False
+  
+  If X > (Screen.Width - 3) And If sCommandRightEdge <> "" Then
+    sEdge = "Right"
+    'Print "right edge", Timer
+  Else If Y < 3 And If sCommandTopEdge <> "" Then
+    sEdge = "Top"
+    'Print "Top edge", Timer
+  Else If X < 3 And If sCommandLeftEdge <> "" Then
+    sedge = "Left"
+    'Print "Left edge", Timer
+  Else If Y > (Screen.Height - 3) And If sCommandBottomEdge <> "" Then
+    sEdge = "Bottom"
+    'Print "Bottom edge", Timer
+  Else ' whole screen except edges
+    bFlag = 0
+    EnableB3
+    sEdge = "False"
+  Endif
+  
+  If sEdge <> "False" Then
+    DisableB3 ' disable the mouse right clic
+    Exec ["xinput", "--query-state", iMouseID] To sClic
+    sClic = Mid(sClic, InStr(sClic, "button[3]=") + Len("button[3]="), Len("down")) ' get just "down"
+    If sClic = "down" And bFlag = 0 Then
+      bFlag = 1
+      Select Case sEdge
+        Case "Top"
+          Shell sCommandTopEdge
+          'Print "sCommandTopEdge", Timer
+        Case "Left"
+          Shell sCommandLeftEdge
+          'Print "sCommandLeftEdge", Timer
+        Case "Right"
+          Shell sCommandRightEdge
+          'Print "sCommandRightEdge", Timer
+        Case "Bottom"
+          Shell sCommandBottomEdge
+          'Print "sCommandBottomEdge", Timer
+      End Select
+    Endif 
+  Endif  
+  
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Private Sub DisableB3() ' disable the right clic  
+  
+  Dim sPointer As String
+  
+  If bClicNormal = True Then
+    bClicNormal = False
+    Exec ["xinput", "set-button-map", iMouseID, "1", "2", "0"] 
+    Exec ["xinput", "list", "--short", iMouseID] To sPointer
+    Print "Right click disabled with xinput for " & Trim(sPointer)
+  Endif
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Private Sub EnableB3() ' enable the right clic
+  
+  Dim sPointer As String
+  
+  If bClicNormal = False Then
+    bClicNormal = True
+    Exec ["xinput", "set-button-map", iMouseID, "1", "2", "3"] 
+    Exec ["xinput", "list", "--short", iMouseID] To sPointer
+    Print "Right click enabled with xinput for " & Trim(sPointer)
+  Endif
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Private Sub GetMouseID()
+  
+  Dim sShell As String, sRet As String
+  
+  iMouseID = ""
+  Print "Mouse analysed by cnee..."
+  sShell = "cnee --record --mouse --events-to-record 100 2>/dev/null | grep  '7,6,' | cut -f9 -d ',' | tail -1"
+  Shell sShell Wait To sRet
+  iMouseID = Trim(sRet)
+  Print "Mouse got with cnee id=" & iMouseID
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Public Sub menuTrayQuit_Click()
+  
+  Me.Close
+  
+End
+
+Public Sub Form_Close()
+  
+  TrayIcon1.Delete
+  tt.Stop
+  EnableB3
+  WriteSettings
+  Print "End", Timer
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Public Sub menuTrayPrefs_Click()  
+  
+  FText.ShowModal
+  LoadSettings
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Private Sub WriteSettings() 
+  
+  Settings["Command/Exist"] = "True"
+  Settings["Command/TopEdge"] = sCommandTopEdge
+  Settings["Command/LeftEdge"] = sCommandLeftEdge
+  Settings["Command/RightEdge"] = sCommandRightEdge
+  Settings["Command/BottomEdge"] = sCommandBottomEdge
+  
+  If Not Exist(sSettingsFile) Then
+    Settings.Save    
+  Endif
+  
+  'Print "settings written", Timer
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Private Sub LoadSettings()
+  
+  Settings.Reload
+  sCommandTopEdge = Settings["Command/TopEdge", Null]
+  sCommandLeftEdge = Settings["Command/LeftEdge", Null]
+  sCommandRightEdge = Settings["Command/RightEdge", Null]
+  sCommandBottomEdge = Settings["Command/BottomEdge", Null]
+  
+  'Print "settings loaded", Timer
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
+
+Public Sub menuTrayAbout_Click()
+  
+  FAbout.Show
+Catch
+  If Error Then Print "Error : ", Error.Text, Error.Where
+  
+End
