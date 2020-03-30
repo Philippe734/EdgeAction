@@ -1,6 +1,10 @@
+1.2.15 :
+Optimised code
+Replace xinput by cnee to get mouse pointer ID
 1.0.19 :
-Fix dependencies of xinput + xmousepos
+Fix dependencies for xinput & xmousepos
 1.0.14 :
-Fix dependency of gb.gui.trayicon with gambas3-gb-gui-trayicon
+Fix dependency for gb.gui.trayicon with gambas3-gb-gui-trayicon
 Fix icon
-1.0.11 : first release
+1.0.11 :
+First release
